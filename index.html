@@ -3,52 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Ujian SMAN 1 Cikalongwetan</title>
+    <title>Sistem Ujian CBT SMAN 1 Cikalongwetan</title>
     <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
         body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background: #f4f6f9; 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            background-color: var(--bg-color); 
             margin: 0; 
             padding: 0; 
+            color: var(--text-main);
         }
+
+        /* Header Premium */
         .header { 
-            background: #0056b3; 
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
             color: white; 
             text-align: center; 
-            padding: 15px; 
+            padding: 30px 20px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-bottom: 4px solid var(--accent-color);
         }
+        .header h2 {
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Container Utama */
+        .container {
+            max-width: 900px;
+            margin: -40px auto 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Kotak Informasi & Aturan */
+        #start-box { 
+            background: var(--card-bg); 
+            padding: 35px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05); 
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .info-title {
+            color: #1e3a8a;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+
+        .rules-list {
+            background-color: #fff1f2;
+            border-left: 4px solid #f43f5e;
+            padding: 15px 15px 15px 35px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #9f1239;
+        }
+
+        .rules-list li {
+            margin-bottom: 8px;
+        }
+        .rules-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .select-prompt {
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        /* Grid Pilihan Mata Pelajaran */
+        .mapel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .mapel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tombol Card Mapel */
+        .card-mapel { 
+            background: var(--card-bg);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px; 
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer; 
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-mapel:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -8px rgba(37,99,235,0.2);
+            background-color: #f8fafc;
+        }
+
+        .mapel-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .mapel-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+        }
+
+        /* Variasi Warna Unik Per Mapel */
+        .geo { border-top: 5px solid #0284c7; }
+        .sos { border-top: 5px solid #f59e0b; }
+        .bio { border-top: 5px solid #10b981; }
+        .eko { border-top: 5px solid #8b5cf6; }
+
+        /* Layar Ujian */
         #exam-container { 
             display: none; 
             width: 100%; 
-            height: 90vh; 
+            height: 100vh; 
+            background-color: white;
         }
         iframe { 
             width: 100%; 
             height: 100%; 
             border: none; 
         }
-        #start-box { 
-            text-align: center; 
-            margin-top: 50px; 
-            background: white; 
-            padding: 40px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            display: inline-block; 
-            width: 80%; 
-            margin-left: 10%; 
-            box-sizing: border-box;
-        }
-        .btn { 
-            background: #28a745; 
-            color: white; 
-            padding: 15px 30px; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 18px; 
-            font-weight: bold;
-        }
+
+        /* Layar Blokir */
         #block-screen { 
             display: none; 
             position: fixed; 
@@ -56,50 +174,98 @@
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background: black; 
-            color: #ff3333; 
+            background: #0f172a; 
+            color: #ef4444; 
             text-align: center; 
-            padding-top: 20%; 
+            padding-top: 15%; 
             z-index: 9999; 
             box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        .block-box {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
 
+<!-- Tampilan Layar Blokir Keamanan -->
 <div id="block-screen">
-    <h1 style="font-size: 45px;">⚠️ AKSES DIBLOKIR!</h1>
-    <p style="font-size: 20px;">Sistem mendeteksi Anda meninggalkan halaman ujian (membuka tab/aplikasi lain).</p>
-    <p style="font-size: 18px; color: #bbb;">Silakan hubungi Pengawas untuk membuka kembali akses ujian Anda.</p>
+    <div class="block-box">
+        <h1 style="font-size: 50px; margin-bottom: 10px;">⚠️</h1>
+        <h1 style="font-size: 32px; margin-top: 0; font-weight: 800; letter-spacing: 1px;">AKSES DIBLOKIR!</h1>
+        <div style="width: 60px; height: 4px; background-color: #ef4444; margin: 20px auto;"></div>
+        <p style="font-size: 18px; color: #f8fafc; line-height: 1.6;">Sistem mendeteksi tindakan keluar dari halaman ujian atau membuka aplikasi/tab lain.</p>
+        <p style="font-size: 15px; color: #94a3b8; margin-top: 25px;">Silakan menghadap ke Pengawas Ruangan untuk memverifikasi dan membuka kembali akses ujian Anda.</p>
+    </div>
 </div>
 
+<!-- Header Portal -->
 <div class="header">
-    <h2>PORTAL UJIAN ONLINE AMAN</h2>
-    <p style="margin: 5px 0 0 0;">SMAN 1 Cikalongwetan</p>
+    <h2>PORTAL CBT EXAM AMAN</h2>
+    <p>SMAN 1 Cikalongwetan</p>
 </div>
 
-<div id="start-box">
-    <h3 style="color: #333;">Informasi Penting Sebelum Ujian:</h3>
-    <p style="text-align: left; max-width: 500px; margin: 0 auto 25px auto; line-height: 1.6;">
-        1. Ujian wajib dilakukan dalam mode <b>Layar Penuh (Full Screen)</b>.<br>
-        2. Dilarang keras membuka tab baru atau pindah aplikasi.<br>
-        3. Jika Anda meminimalkan browser atau pindah tab, sistem akan otomatis memblokir ujian Anda.
-    </p>
-    <button class="btn" onclick="mulaiUjian()">MULAI UJIAN SEKARANG</button>
+<!-- Container Menu Utama -->
+<div class="container" id="main-portal">
+    <div id="start-box">
+        <h3 class="info-title">Informasi Penting & Tata Tertib Ujian</h3>
+        
+        <ul class="rules-list">
+            <li>Ujian wajib dilaksanakan dalam mode <b>Layar Penuh (Full Screen)</b>.</li>
+            <li>Dilarang keras menyontek, mengambil tangkapan layar (screenshot), atau membuka tab baru.</li>
+            <li>Jika siswa meminimalkan halaman browser, pindah aplikasi, atau menerima notifikasi pop-up luar, <b>sistem akan otomatis memutus ujian secara permanen</b>.</li>
+        </ul>
+
+        <p class="select-prompt">Silakan pilih mata pelajaran di bawah untuk memulai ujian:</p>
+
+        <!-- Pilihan Card Mapel Grid -->
+        <div class="mapel-grid">
+            <div class="card-mapel geo" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLScIozw5jA63GrCBZurvxM_pcqzwjyM5n9lYrLcYWxgHmi0TWQ/viewform')">
+                <div class="mapel-icon">🌍</div>
+                <div class="mapel-name">GEOGRAFI</div>
+            </div>
+            
+            <div class="card-mapel sos" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLScYsHhwgAcmHxV7GK23YBgJtxHrGgFJ0GHaqqfa_AGR6tz7lw/viewform')">
+                <div class="mapel-icon">👥</div>
+                <div class="mapel-name">SOSIOLOGI</div>
+            </div>
+            
+            <div class="card-mapel bio" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLSdHN54Gnla20opVPB1osncwzkLskX2kfph0X4K6uQBig02Sdw/viewform')">
+                <div class="mapel-icon">🧬</div>
+                <div class="mapel-name">BIOLOGI</div>
+            </div>
+            
+            <div class="card-mapel eko" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform')">
+                <div class="mapel-icon">📈</div>
+                <div class="mapel-name">EKONOMI</div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- Tempat Munculnya Lembar Soal -->
 <div id="exam-container">
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform">Memuat soal...</iframe>
+    <iframe id="exam-frame" src="">Memuat lembar soal...</iframe>
 </div>
 
 <script>
     let sudahMulai = false;
 
-    function mulaiUjian() {
+    function mulaiUjian(urlForm) {
         sudahMulai = true;
-        document.getElementById('start-box').style.display = 'none';
+        
+        // Memasukkan link Google Form tujuan ke iframe
+        document.getElementById('exam-frame').src = urlForm;
+        
+        // Sembunyikan seluruh modul menu, tampilkan layar penuh soal
+        document.getElementById('main-portal').style.display = 'none';
+        document.querySelector('.header').style.display = 'none';
         document.getElementById('exam-container').style.display = 'block';
         
+        // Masuk ke Mode Fullscreen Sistem Otomatis
         let elem = document.documentElement;
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
@@ -110,11 +276,11 @@
         }
     }
 
-    // Hanya memblokir jika halaman benar-benar disembunyikan/ditinggalkan
+    // Proteksi Mutakhir: Pindah Tab / Layar Belakang Otomatis Hancurkan Soal
     document.addEventListener('visibilitychange', function() {
         if (sudahMulai && document.hidden) {
             document.getElementById('block-screen').style.display = 'block';
-            document.getElementById('exam-container').innerHTML = ""; 
+            document.getElementById('exam-container').innerHTML = ""; // Menghilangkan Google Form agar tidak bisa dikerjakan lagi
         }
     });
 </script>

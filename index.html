@@ -71,7 +71,7 @@
 
 <div id="block-screen">
     <h1 style="font-size: 45px;">⚠️ AKSES DIBLOKIR!</h1>
-    <p style="font-size: 20px;">Sistem mendeteksi Anda keluar dari halaman ujian atau membuka tab/aplikasi lain.</p>
+    <p style="font-size: 20px;">Sistem mendeteksi Anda benar-benar keluar dari halaman ujian (membuka tab/aplikasi lain).</p>
     <p style="font-size: 18px; color: #bbb;">Silakan hubungi Pengawas untuk membuka kembali akses ujian Anda.</p>
 </div>
 
@@ -84,14 +84,14 @@
     <h3 style="color: #333;">Informasi Penting Sebelum Ujian:</h3>
     <p style="text-align: left; max-width: 500px; margin: 0 auto 25px auto; line-height: 1.6;">
         1. Ujian wajib dilakukan dalam mode <b>Layar Penuh (Full Screen)</b>.<br>
-        2. Dilarang keras membuka tab baru, pindah aplikasi, atau menekan tombol Home.<br>
-        3. Jika Anda meninggalkan halaman ini, <b>sistem akan otomatis memblokir</b> ujian Anda.
+        2. Dilarang keras membuka tab baru atau pindah aplikasi.<br>
+        3. Jika Anda benar-benar menutup atau meninggalkan halaman ini, sistem akan memblokir ujian Anda.
     </p>
     <button class="btn" onclick="mulaiUjian()">MULAI UJIAN SEKARANG</button>
 </div>
 
 <div id="exam-container">
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform?embedded=true">Memuat soal...</iframe>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform">Memuat soal...</iframe>
 </div>
 
 <script>
@@ -102,7 +102,6 @@
         document.getElementById('start-box').style.display = 'none';
         document.getElementById('exam-container').style.display = 'block';
         
-        // Memaksa browser masuk ke mode Fullscreen
         let elem = document.documentElement;
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
@@ -113,15 +112,15 @@
         }
     }
 
-    // Deteksi otomatis jika siswa pindah tab, buka aplikasi lain, atau tekan tombol home
-    window.addEventListener('blur', function() {
-        if (sudahMulai) {
+    // Perbaikan deteksi: Menggunakan Visibility API agar tidak sensitif terhadap klik di dalam iframe Google Form
+    document.addEventListener('visibilitychange', function() {
+        if (sudahMulai && document.hidden) {
             document.getElementById('block-screen').style.display = 'block';
-            document.getElementById('exam-container').innerHTML = ""; // Menghapus soal agar tidak bisa diintip
+            document.getElementById('exam-container').innerHTML = ""; // Hapus soal jika siswa benar-benar pindah tab/aplikasi
         }
     });
 
-    // Mencegah klik kanan (anti inspect element / anti copy)
+    // Mencegah klik kanan
     document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 

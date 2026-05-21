@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Ujian SMAN 1 Cikalongwetan</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: #f4f6f9; 
+            margin: 0; 
+            padding: 0; 
+            user-select: none; 
+            -webkit-user-select: none;
+        }
+        .header { 
+            background: #0056b3; 
+            color: white; 
+            text-align: center; 
+            padding: 15px; 
+        }
+        #exam-container { 
+            display: none; 
+            width: 100%; 
+            height: 90vh; 
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+        #start-box { 
+            text-align: center; 
+            margin-top: 50px; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            display: inline-block; 
+            width: 80%; 
+            margin-left: 10%; 
+            box-sizing: border-box;
+        }
+        .btn { 
+            background: #28a745; 
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-weight: bold;
+        }
+        #block-screen { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: black; 
+            color: #ff3333; 
+            text-align: center; 
+            padding-top: 20%; 
+            z-index: 9999; 
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div id="block-screen">
+    <h1 style="font-size: 45px;">⚠️ AKSES DIBLOKIR!</h1>
+    <p style="font-size: 20px;">Sistem mendeteksi Anda keluar dari halaman ujian atau membuka tab/aplikasi lain.</p>
+    <p style="font-size: 18px; color: #bbb;">Silakan hubungi Pengawas untuk membuka kembali akses ujian Anda.</p>
+</div>
+
+<div class="header">
+    <h2>PORTAL UJIAN ONLINE AMAN</h2>
+    <p style="margin: 5px 0 0 0;">SMAN 1 Cikalongwetan</p>
+</div>
+
+<div id="start-box">
+    <h3 style="color: #333;">Informasi Penting Sebelum Ujian:</h3>
+    <p style="text-align: left; max-width: 500px; margin: 0 auto 25px auto; line-height: 1.6;">
+        1. Ujian wajib dilakukan dalam mode <b>Layar Penuh (Full Screen)</b>.<br>
+        2. Dilarang keras membuka tab baru, pindah aplikasi, atau menekan tombol Home.<br>
+        3. Jika Anda meninggalkan halaman ini, <b>sistem akan otomatis memblokir</b> ujian Anda.
+    </p>
+    <button class="btn" onclick="mulaiUjian()">MULAI UJIAN SEKARANG</button>
+</div>
+
+<div id="exam-container">
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform?embedded=true">Memuat soal...</iframe>
+</div>
+
+<script>
+    let sudahMulai = false;
+
+    function mulaiUjian() {
+        sudahMulai = true;
+        document.getElementById('start-box').style.display = 'none';
+        document.getElementById('exam-container').style.display = 'block';
+        
+        // Memaksa browser masuk ke mode Fullscreen
+        let elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { 
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { 
+            elem.msRequestFullscreen();
+        }
+    }
+
+    // Deteksi otomatis jika siswa pindah tab, buka aplikasi lain, atau tekan tombol home
+    window.addEventListener('blur', function() {
+        if (sudahMulai) {
+            document.getElementById('block-screen').style.display = 'block';
+            document.getElementById('exam-container').innerHTML = ""; // Menghapus soal agar tidak bisa diintip
+        }
+    });
+
+    // Mencegah klik kanan (anti inspect element / anti copy)
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+
+</body>
+</html>

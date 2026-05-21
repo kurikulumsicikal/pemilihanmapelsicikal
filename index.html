@@ -187,6 +187,23 @@
             margin: 0 auto;
             padding: 20px;
         }
+
+        /* Tombol Reset Pengawas */
+        .btn-unlock {
+            background-color: #334155;
+            color: #94a3b8;
+            border: none;
+            padding: 10px 20px;
+            font-size: 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: all 0.2s;
+        }
+        .btn-unlock:hover {
+            background-color: #475569;
+            color: #f8fafc;
+        }
     </style>
 </head>
 <body>
@@ -199,48 +216,53 @@
         <div style="width: 60px; height: 4px; background-color: #ef4444; margin: 20px auto;"></div>
         <p style="font-size: 18px; color: #f8fafc; line-height: 1.6;">Sistem mendeteksi tindakan keluar dari halaman ujian atau membuka aplikasi/tab lain.</p>
         <p style="font-size: 15px; color: #94a3b8; margin-top: 25px;">Silakan menghadap ke Pengawas Ruangan untuk memverifikasi dan membuka kembali akses ujian Anda.</p>
+        
+        <!-- Tombol Reset Mandiri untuk Pengawas -->
+        <button class="btn-unlock" onclick="bukaKunciPengawas()">Buka Akses (Pengawas)</button>
     </div>
 </div>
 
-<!-- Header Portal dengan Nama yang Benar -->
-<div class="header">
-    <h2>SICIKAL CBT EXAM</h2>
-    <p>SMAN 1 CIKALONGWETAN</p>
-</div>
+<div id="main-interface">
+    <!-- Header Portal -->
+    <div class="header">
+        <h2>SICIKAL CBT EXAM</h2>
+        <p>SMAN 1 CIKALONGWETAN</p>
+    </div>
 
-<!-- Container Menu Utama -->
-<div class="container" id="main-portal">
-    <div id="start-box">
-        <h3 class="info-title">Informasi Penting & Tata Tertib Ujian</h3>
-        
-        <ul class="rules-list">
-            <li>Ujian wajib dilaksanakan dalam mode <b>Layar Penuh (Full Screen)</b>.</li>
-            <li>Dilarang keras menyontek, mengambil tangkapan layar (screenshot), atau membuka tab baru.</li>
-            <li>Jika siswa meminimalkan halaman browser, pindah aplikasi, atau menerima notifikasi luar, <b>sistem akan otomatis memutus ujian secara permanen</b>.</li>
-        </ul>
+    <!-- Container Menu Utama -->
+    <div class="container" id="main-portal">
+        <div id="start-box">
+            <h3 class="info-title">Informasi Penting & Tata Tertib Ujian</h3>
+            
+            <ul class="rules-list">
+                <li>Ujian wajib dilaksanakan dalam mode <b>Layar Penuh (Full Screen)</b>.</li>
+                <li>Dilarang keras menyontek, mengambil tangkapan layar (screenshot), atau membuka tab baru.</li>
+                <li>Jika siswa meminimalkan halaman browser atau pindah ke aplikasi lain, <b>sistem akan otomatis memutus ujian secara permanen</b>.</li>
+            </ul>
 
-        <p class="select-prompt">Silakan pilih mata pelajaran di bawah untuk memulai ujian:</p>
+            <p class="select-prompt">Silakan pilih mata pelajaran di bawah untuk memulai ujian:</p>
 
-        <!-- Pilihan Card Mapel Grid -->
-        <div class="mapel-grid">
-            <div class="card-mapel geo" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLScIozw5jA63GrCBZurvxM_pcqzwjyM5n9lYrLcYWxgHmi0TWQ/viewform')">
-                <div class="mapel-icon">🌍</div>
-                <div class="mapel-name">GEOGRAFI</div>
-            </div>
-            
-            <div class="card-mapel sos" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLScYsHhwgAcmHxV7GK23YBgJtxHrGgFJ0GHaqqfa_AGR6tz7lw/viewform')">
-                <div class="mapel-icon">👥</div>
-                <div class="mapel-name">SOSIOLOGI</div>
-            </div>
-            
-            <div class="card-mapel bio" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLSdHN54Gnla20opVPB1osncwzkLskX2kfph0X4K6uQBig02Sdw/viewform')">
-                <div class="mapel-icon">🧬</div>
-                <div class="mapel-name">BIOLOGI</div>
-            </div>
-            
-            <div class="card-mapel eko" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform')">
-                <div class="mapel-icon">📈</div>
-                <div class="mapel-name">EKONOMI</div>
+            <!-- Pilihan Card Mapel Grid -->
+            <div class="mapel-grid">
+                <div class="card-mapel geo" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLScIozw5jA63GrCBZurvxM_pcqzwjyM5n9lYrLcYWxgHmi0TWQ/viewform')">
+                    <div class="mapel-icon">🌍</div>
+                    <div class="mapel-name">GEOGRAFI</div>
+                </div>
+                
+                <div class="card-mapel sos" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLScYsHhwgAcmHxV7GK23YBgJtxHrGgFJ0GHaqqfa_AGR6tz7lw/viewform')">
+                    <div class="mapel-icon">👥</div>
+                    <div class="mapel-name">SOSIOLOGI</div>
+                </div>
+                
+                <div class="card-mapel bio" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLSdHN54Gnla20opVPB1osncwzkLskX2kfph0X4K6uQBig02Sdw/viewform')">
+                    <div class="mapel-icon">🧬</div>
+                    <div class="mapel-name">BIOLOGI</div>
+                </div>
+                
+                <div class="card-mapel eko" onclick="mulaiUjian('https://docs.google.com/forms/d/e/1FAIpQLSeqOMcM0X9IEw8DZ967iGvienxz6FJzduKKNu2Ytd2IQTSxGQ/viewform')">
+                    <div class="mapel-icon">📈</div>
+                    <div class="mapel-name">EKONOMI</div>
+                </div>
             </div>
         </div>
     </div>
@@ -252,20 +274,20 @@
 </div>
 
 <script>
-    let sudahMulai = false;
+    // Cek status kecurangan saat halaman pertama kali dimuat (antisipasi refresh)
+    window.onload = function() {
+        if (localStorage.getItem("sicikal_status") === "blocked") {
+            tampilkanLayarBlokir();
+        }
+    };
 
     function mulaiUjian(urlForm) {
-        sudahMulai = true;
+        localStorage.setItem("sicikal_status", "running");
         
-        // Memasukkan link Google Form tujuan ke iframe
         document.getElementById('exam-frame').src = urlForm;
-        
-        // Sembunyikan seluruh modul menu, tampilkan layar penuh soal
-        document.getElementById('main-portal').style.display = 'none';
-        document.querySelector('.header').style.display = 'none';
+        document.getElementById('main-interface').style.display = 'none';
         document.getElementById('exam-container').style.display = 'block';
         
-        // Masuk ke Mode Fullscreen Sistem Otomatis
         let elem = document.documentElement;
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
@@ -276,13 +298,33 @@
         }
     }
 
-    // Proteksi Mutakhir: Pindah Tab / Layar Belakang Otomatis Hancurkan Soal
+    function tampilkanLayarBlokir() {
+        document.getElementById('block-screen').style.display = 'block';
+        document.getElementById('exam-container').style.display = 'none'; 
+        document.getElementById('main-interface').style.display = 'none';
+    }
+
+    // Proteksi Otomatis Kunci Permanen
     document.addEventListener('visibilitychange', function() {
-        if (sudahMulai && document.hidden) {
-            document.getElementById('block-screen').style.display = 'block';
-            document.getElementById('exam-container').innerHTML = ""; // Menghilangkan Google Form agar tidak bisa dikerjakan lagi
+        if (localStorage.getItem("sicikal_status") === "running" && document.hidden) {
+            localStorage.setItem("sicikal_status", "blocked");
+            tampilkanLayarBlokir();
         }
     });
+
+    // Fitur bypass instan untuk pengawas ruangan
+    function bukaKunciPengawas() {
+        let pin = prompt("Masukkan Password Pengawas untuk Membuka Akses:");
+        
+        // Silakan ganti 'cikal2026' dengan password pilihan Anda sendiri
+        if (pin === "cikal2026") {
+            localStorage.clear(); // Bersihkan status blokir di browser siswa
+            alert("Akses berhasil dibuka kembali!");
+            window.location.reload(); // Segarkan halaman ke menu utama
+        } else if (pin !== null) {
+            alert("Password Salah! Akses tetap diblokir.");
+        }
+    }
 </script>
 
 </body>

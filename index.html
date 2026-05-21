@@ -10,8 +10,6 @@
             background: #f4f6f9; 
             margin: 0; 
             padding: 0; 
-            user-select: none; 
-            -webkit-user-select: none;
         }
         .header { 
             background: #0056b3; 
@@ -71,7 +69,7 @@
 
 <div id="block-screen">
     <h1 style="font-size: 45px;">⚠️ AKSES DIBLOKIR!</h1>
-    <p style="font-size: 20px;">Sistem mendeteksi Anda benar-benar keluar dari halaman ujian (membuka tab/aplikasi lain).</p>
+    <p style="font-size: 20px;">Sistem mendeteksi Anda meninggalkan halaman ujian (membuka tab/aplikasi lain).</p>
     <p style="font-size: 18px; color: #bbb;">Silakan hubungi Pengawas untuk membuka kembali akses ujian Anda.</p>
 </div>
 
@@ -85,7 +83,7 @@
     <p style="text-align: left; max-width: 500px; margin: 0 auto 25px auto; line-height: 1.6;">
         1. Ujian wajib dilakukan dalam mode <b>Layar Penuh (Full Screen)</b>.<br>
         2. Dilarang keras membuka tab baru atau pindah aplikasi.<br>
-        3. Jika Anda benar-benar menutup atau meninggalkan halaman ini, sistem akan memblokir ujian Anda.
+        3. Jika Anda meminimalkan browser atau pindah tab, sistem akan otomatis memblokir ujian Anda.
     </p>
     <button class="btn" onclick="mulaiUjian()">MULAI UJIAN SEKARANG</button>
 </div>
@@ -112,16 +110,13 @@
         }
     }
 
-    // Perbaikan deteksi: Menggunakan Visibility API agar tidak sensitif terhadap klik di dalam iframe Google Form
+    // Hanya memblokir jika halaman benar-benar disembunyikan/ditinggalkan
     document.addEventListener('visibilitychange', function() {
         if (sudahMulai && document.hidden) {
             document.getElementById('block-screen').style.display = 'block';
-            document.getElementById('exam-container').innerHTML = ""; // Hapus soal jika siswa benar-benar pindah tab/aplikasi
+            document.getElementById('exam-container').innerHTML = ""; 
         }
     });
-
-    // Mencegah klik kanan
-    document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 
 </body>
